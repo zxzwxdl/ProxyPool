@@ -2,6 +2,7 @@ import asyncio
 import aiohttp
 import time
 import sys
+
 try:
     from aiohttp import ClientError
 except:
@@ -12,8 +13,10 @@ from proxypool.setting import *
 
 class Tester(object):
     def __init__(self):
+        # 如果不声明以下代码 会报错：There is no current event loop in thread，参考https://blog.csdn.net/jusang486/article/details/82382358
+        asyncio.set_event_loop(asyncio.new_event_loop())
         self.redis = RedisClient()
-    
+
     async def test_single_proxy(self, proxy):
         """
         测试单个代理
@@ -37,7 +40,7 @@ class Tester(object):
             except (ClientError, aiohttp.client_exceptions.ClientConnectorError, asyncio.TimeoutError, AttributeError):
                 self.redis.decrease(proxy)
                 print('代理请求失败', proxy)
-    
+
     def run(self):
         """
         测试主函数

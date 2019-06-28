@@ -2,7 +2,8 @@
 REDIS_HOST = '127.0.0.1'
 
 # Redis端口
-REDIS_PORT = 6379
+# REDIS_PORT = 6379
+REDIS_PORT = 6082
 
 # Redis密码，如无填None
 REDIS_PASSWORD = None
